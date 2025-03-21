@@ -93,7 +93,9 @@ class _CadastroViajanteState extends State<CadastroViajante> {
     await preferencias.setString(userPaisKey, pais);
   }
 
-  void _clearUserData() {
-    
+  void _clearUserData() async{
+    _nomeController.clear();
+    _idadeController.clear();
+    _paisController.clear();
   }
 }
