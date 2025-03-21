@@ -71,6 +71,14 @@ class _CadastroViajanteState extends State<CadastroViajante> {
     );
   }
   
+  void bandeira(){
+    final pais = _paisController.text;
+
+    switch(pais){
+      case "Brasil": ;
+    }
+  }
+
   Future<void> _loadUserData() async{
     final preferencias = await SharedPreferences.getInstance();
 
@@ -93,7 +101,7 @@ class _CadastroViajanteState extends State<CadastroViajante> {
     await preferencias.setString(userPaisKey, pais);
   }
 
-  void _clearUserData() async{
+  void _clearUserData(){
     _nomeController.clear();
     _idadeController.clear();
     _paisController.clear();
