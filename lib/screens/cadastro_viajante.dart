@@ -9,7 +9,6 @@ class CadastroViajante extends StatefulWidget {
 }
 
 class _CadastroViajanteState extends State<CadastroViajante> {
-
   static const userNomeKey = 'usernome';
   static const userIdadeKey = 'useridade';
   static const userPaisKey = 'userpais';
@@ -19,7 +18,7 @@ class _CadastroViajanteState extends State<CadastroViajante> {
   final TextEditingController _paisController = TextEditingController();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _loadUserData();
   }
@@ -27,10 +26,7 @@ class _CadastroViajanteState extends State<CadastroViajante> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Cadastrar Viajante'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text('Cadastrar Viajante'), centerTitle: true),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -47,39 +43,52 @@ class _CadastroViajanteState extends State<CadastroViajante> {
               controller: _paisController,
               decoration: InputDecoration(labelText: 'País'),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                ElevatedButton(onPressed: _saveUserData, child: Text('Salvar')),
                 ElevatedButton(
-                  onPressed: _saveUserData, 
-                  child: Text('Salvar')
+                  onPressed: _loadUserData,
+                  child: Text('Carregar dados'),
                 ),
                 ElevatedButton(
-                  onPressed: _loadUserData, 
-                  child: Text('Carregar dados')
-                ),
-                ElevatedButton(
-                  onPressed: _clearUserData, 
-                  child: Text('Limpar')
+                  onPressed: _clearUserData,
+                  child: Text('Limpar'),
                 ),
               ],
-            )
+            ),
+            SizedBox(height: 20),
+            Text(
+              bandeira(_paisController.text),
+              style: TextStyle(fontSize: 40),
+            ),
           ],
         ),
-      )
+      ),
     );
   }
-  
-  void bandeira(){
-    final pais = _paisController.text;
 
-    switch(pais){
-      case "Brasil": ;
+  String bandeira(String pais) {
+    switch (pais.toLowerCase()) {
+      case "brasil":
+        return 'br';
+      case "frança":
+        return '🇫🇷';
+      case "itália":
+        return '🇮🇹';
+      case "austrália":
+        return '🇦🇺';
+      case "alemanha":
+        return '🇩🇪';
+      case "croácia":
+        return '🇭🇷';
+      default:
+        return '🏳️';
     }
   }
 
-  Future<void> _loadUserData() async{
+  Future<void> _loadUserData() async {
     final preferencias = await SharedPreferences.getInstance();
 
     setState(() {
@@ -89,7 +98,7 @@ class _CadastroViajanteState extends State<CadastroViajante> {
     });
   }
 
-  void _saveUserData() async{
+  void _saveUserData() async {
     String nome = _nomeController.text;
     int idade = int.tryParse(_idadeController.text) ?? 0;
     String pais = _paisController.text;
@@ -101,9 +110,11 @@ class _CadastroViajanteState extends State<CadastroViajante> {
     await preferencias.setString(userPaisKey, pais);
   }
 
-  void _clearUserData(){
+  void _clearUserData() {
+    setState(() {
     _nomeController.clear();
     _idadeController.clear();
     _paisController.clear();
+    });
   }
 }
