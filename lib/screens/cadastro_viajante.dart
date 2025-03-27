@@ -83,6 +83,14 @@ class _CadastroViajanteState extends State<CadastroViajante> {
         return '🇩🇪';
       case "croácia":
         return '🇭🇷';
+      case "china":
+        return '🇨🇳';
+      case "argentina":
+        return '🇦🇷';
+      case "japão":
+        return '🇯🇵';
+      case "reino unido":
+        return '🇬🇧';
       default:
         return '🏳️';
     }
